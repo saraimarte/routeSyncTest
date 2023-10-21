@@ -1,26 +1,12 @@
 # myapp/views.py
-from django.shortcuts import render, HttpResponse
-from .models import Files
-
-# Create your views here.
+from django.shortcuts import render
 
 def home(request):
-    return render(request, "base.html")
-
-
-def about(request):
-    return render(request, "about.html")
-
-def contact(request):
-    return render(request, "contact.html")
-
-def product(request):
 
     if request.method == "POST" and request.FILES['file'] and request.FILES['file2']:
         api_key = request.POST.get("key")
         API_KEY = api_key;
         import os
-    
         import pandas as pd
         import googlemaps
         from datetime import datetime
@@ -293,16 +279,8 @@ def product(request):
         print("NEW ROUTE DONE")
         file_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'newRoute.csv')
         newRoute.to_csv(file_path, index = False)
-        newFile = Files(file = './media/uploads/newRoute.csv')
-        print("Adding newRoute to the database...")
-        print(type(newFile))
-        newFile.save()
-        print("Saving the new file to the database...")
-        fileItems= Files.objects.all()
-        print("adding all file items to fileitems...")
         open3 = True
-
-        context = {"files": fileItems, "open3": open3}
-        return render(request, "product.html", context)
+        context = {"open3": open3}
+        return render(request, "home.html", context)
     else:
-        return render(request, "product.html")
+        return render(request, "home.html")

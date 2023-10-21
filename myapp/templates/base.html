@@ -14,22 +14,28 @@
     <div class = "container">
         <header x-data = "{openMenu: false}">
             <h1>RouteSync</h1>
-            <img id = "menu" x-on:click = "openMenu =! openMenu" src = "{% static 'myapp/images/menu.png' %}" alt = "Menu" /> 
+            <img id = "menu" x-on:click = "openMenu =! openMenu" src = "menu.png" alt = "Menu" /> 
             <nav class = "openMenu" x-show = "openMenu">
                 <ul>
-                    <li><a href="{% url 'Product' %}">Product</a></li>
-                  
+                    <li><a href="{% url 'home' %}">Home</a></li>
                 </ul>
             </nav>
         </header>
         
         {% block content %} {% endblock %}
+
+        <p> made by <a href ="https://saraimarte.netlify.app/"> sarai</a>  with ❤️</p>
     </div>
    
 </body>
 </html>
 
 <style>
+    
+    p{
+        position: relative;
+        left:25px;
+    }
     *{
         box-sizing: border-box;
         padding:0;
@@ -40,6 +46,7 @@
         flex-direction: column;
         height:100%;
         width:100%;
+        
 
     }
     #menu{
@@ -65,10 +72,10 @@
     .openMenu a{
         text-decoration: none;
         color:black;
-        font-family: 'Inter', sans-serif;
-        font-size:48px;
-        
-
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+                
     }
     *{
         margin:0;
@@ -104,6 +111,10 @@
         justify-content:space-between;
         margin-top:50px;
         padding:0;
+    }
+
+    a{
+        color:black;
     }
 
     }

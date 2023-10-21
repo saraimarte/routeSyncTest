@@ -1,52 +1,61 @@
 {% extends "base.html" %}
-
-{% block title %} Product {% endblock %}
-
 {% block content %}
 
-<div class="Stepscontainer">
 
-    <form method="POST" enctype="multipart/form-data" action="" x-data="{open:false, open2:false, open4:false, filename: '', filename2: '', open3: {{ open3|yesno:'true,false' }}}">     
-        {% csrf_token %} 
-        <div class="step"> 
-            <h1>1. Upload Current Route</h1>
-            <h2>Format: Excel</h2>
-            <div x-show="open">
-                <span class="fileStyle" x-text="filename"></span>
-            </div>
-            <input type="file" name="file" x-on:change="
-            open = !open;
-            filename = $event.target.files[0].name;
-            ">
-         </div>
-        <div class="step">
-            <h1>2. Upload New Stops</h1>
-            <h2>Format: Excel</h2>
-            <div x-show="open2">
-                <span class="fileStyle" x-text="filename2"></span>
-            </div>
-            <input type="file" name="file2" x-on:change="
-            open2 = !open2;
-            filename2 = $event.target.files[0].name;
-            ">
+<form method="POST" enctype="multipart/form-data" action="" x-data="{open:false, open2:false, open4:false, filename: '', filename2: '', open3: {{ open3|yesno:'true,false' }}}">     
+    {% csrf_token %}
+    <div class="step"> 
+        <h1>1. Upload Current Route</h1>
+        <h2>Format: CSV</h2>
+        <div x-show="open">
+            <span class="fileStyle" x-text="filename"></span>
         </div>
-        <div class="step">
-            <h1> 3. Enter Google Maps API Key </h1>
-            <input type = "text" name = "key">
-            <a x-show = "open3" href = "/media/uploads/newRoute.csv" download> Download New Route </a>
-            <button @click = "open4 =! open4" type = "submit"> Submit </button>
-            <div x-show = "open4" class="load"> </div>
+        <input type="file" name="file" x-on:change="
+        open = !open;
+        filename = $event.target.files[0].name;
+        ">
+     </div>
+    <div class="step">
+        <h1>2. Upload New Stops</h1>
+        <h2>Format: CSV</h2>
+        <div x-show="open2">
+            <span class="fileStyle" x-text="filename2"></span>
+        </div>
+        <input type="file" name="file2" x-on:change="
+        open2 = !open2;
+        filename2 = $event.target.files[0].name;
+        ">
+    </div>
+    <div class="step">
+        <h1> 3. Enter Google Maps API Key </h1>
+        <input id = "keyStyle" type = "text" name = "key">
+        <a x-show = "open3" href = "/media/uploads/newRoute.csv" download>  Download New Route </a>
+       <div class = "loadContainer">
+        <button @click = "open4 =! open4" type = "submit"> Submit </button>
+        <div class="load" x-show = "open4"> </div>
 
-        </div>
+       </div>
+       
+    </div>
 </form>
 
-    
-</div>
-
-
-
-
 <style>
+    a{
+        color:black;
+    }
+    #keyStyle{
+       border:3px solid black;
+       height:30px;
+       font-family: proxima-nova, sans-serif;
+       font-style: normal;
+       font-weight: 700;
+                
+    }
+    .loadContainer{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     /*https://codepen.io/jake-lee/pen/jrJYON*/
  @keyframes rotate {
     from {
@@ -68,10 +77,12 @@
 }
 
 .load {
-	width: 50px;
-	height: 50px;
-	margin: 110px auto 0;
-	border:solid 10px #000000;
+    position: relative;
+    right:10%;
+    top:5px;
+	width: 30px;
+	height: 30px;
+	border:solid 4px #000000;
 	border-radius: 50%;
 	border-right-color: transparent;
 	border-bottom-color: transparent;
@@ -91,18 +102,99 @@
 
 
 
+<style>
+    /*
+   .Stepscontainer{
+    border:5px solid orange;
+   }
+   */
+   
+    .step{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        width:346px;
+        min-height:277px;
+        height:min-content;
+        padding:20px 50px 20px 50px;
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        gap:1em;
+    }
+    #newRouteLink{
+        color:black;
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+                    
+    }
+    button, input{
+        margin-top:10px;
+    }
+    form{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap:1em;
 
+    }
+    h1{
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+                
+        width:255px;
+    }
+    h2{
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size:16px;
 
+                
+    }
 
+    input::file-selector-button, button{
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+                
+        background-color: black;
+        padding:1em 2em;
+        color:white;
+        width:146px;
+        height:auto;
+    }
+    input[type = "file"]{
+        color: rgba(0, 0, 0, 0);
+    }
 
+    .fileStyle{
+        font-family: proxima-nova, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+                    }
 
+   
 
+    @media only screen and (min-width : 1200px) {
+        form{
+            justify-content: start;
+            align-items:center;
+            flex-direction: row;
+            flex-wrap:wrap;
+            gap:1em;
+            height: min-content;
+        }
+        .step{
+            width:32%;
+            min-width: min-content;
+            
+    }
+    }
 
-
-
-
-
-
+</style>
+{% endblock%}
 
 
 
