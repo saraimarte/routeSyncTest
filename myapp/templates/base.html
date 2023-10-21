@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {% load static %}
+</head>
+<body>
+    <div class = "container">
+        <header x-data = "{openMenu: false}">
+            <h1>RouteSync</h1>
+            <img id = "menu" x-on:click = "openMenu =! openMenu" src = "{% static 'myapp/images/menu.png' %}" alt = "Menu" /> 
+            <nav class = "openMenu" x-show = "openMenu">
+                <ul>
+                    <li><a href="{% url 'Product' %}">Product</a></li>
+                  
+                </ul>
+            </nav>
+        </header>
+        
+        {% block content %} {% endblock %}
+    </div>
+   
+</body>
+</html>
+
+<style>
+    *{
+        box-sizing: border-box;
+        padding:0;
+        margin:0;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        height:100%;
+        width:100%;
+
+    }
+    #menu{
+        z-index: 5;
+    }
+    .openMenu{
+        height:100%;
+        width:100%;
+        position:fixed;
+        background-color: white;
+        top:0;
+        left:0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align:center;
+    }
+
+    .openMenu li{
+        list-style:none;
+        padding:20px;
+    }
+    .openMenu a{
+        text-decoration: none;
+        color:black;
+        font-family: 'Inter', sans-serif;
+        font-size:48px;
+        
+
+    }
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+    }
+    body{
+        height:100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    header{
+        display:flex;
+        align-items: center;
+        justify-content:space-between;
+        width:100%;
+       /* border: 5px solid blue;*/
+        padding: 0 20px;
+        margin: 20px 0px;
+    }
+
+    @media only screen and (min-width : 480px) {
+        .container{
+        /*border:5px solid purple;*/
+        display: flex;
+        flex-direction: column;
+        gap:1em;
+        height:100%;
+        width:80%;
+    }
+    header{
+        justify-content:space-between;
+        margin-top:50px;
+        padding:0;
+    }
+
+    }
+    
+</style>
