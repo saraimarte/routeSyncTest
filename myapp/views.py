@@ -1,7 +1,7 @@
 # myapp/views.py
 from datetime import datetime
 
-from django.http import HttpResponse, render
+from django.shortcuts import render
 
 def index(request):
 
