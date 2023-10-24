@@ -1,6 +1,11 @@
 # myapp/views.py
 from django.shortcuts import render
 
+def faq(request):
+    return render(request, "faq.html")
+def about(request):
+    return render(request, "about.html")
+
 def home(request):
 
     if request.method == "POST" and request.FILES['file'] and request.FILES['file2']:
@@ -284,3 +289,4 @@ def home(request):
         return render(request, "home.html", context)
     else:
         return render(request, "home.html")
+

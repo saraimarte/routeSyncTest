@@ -11,7 +11,8 @@
     {% load static %}
 </head>
 <body>
-    <div class = "container">
+    <!--
+           <div class = "container">
         <header x-data = "{openMenu: false}">
             <h1>RouteSync</h1>
             <img id = "menu" x-on:click = "openMenu =! openMenu" src = " " alt = "Menu" /> 
@@ -21,17 +22,20 @@
                 </ul>
             </nav>
         </header>
-        <!-- deployed! -->
+    
 
-        {% block content %} {% endblock %}
-
+       
         <p> made by <a href ="https://saraimarte.netlify.app/"> sarai</a>  with ❤️</p>
     </div>
-   
+    -->
+ 
+    {% block content %} {% endblock %}
+
 </body>
 </html>
 
-<style>
+<!--
+  <style>
     
     p{
         position: relative;
@@ -120,4 +124,5 @@
 
     }
     
-</style>
+</style>  
+-->

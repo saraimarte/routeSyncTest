@@ -1,6 +1,321 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% load static %}
+
+<div class = "wrapper">
+
+    <div class = "navbar">
+        <div class = "container flex">
+            <h1 class = "logo"> RouteSync </h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}"> Try Now </a></li>
+                    <li><a href="{% url 'About' %}">About</a></li>
+                    <li><a href="{% url 'FAQ' %}">FAQ</a></li> </ul>
+            </nav>
+        </div>
+
+    </div>
+    <div class = "content">
+        <h1 id = "cta"> Add new stops to your current route for
+            the shortest route <br> possible  in 3 easy steps. </h1>
+    <form method="POST" enctype="multipart/form-data" action="" x-data="{open:false, open2:false, open4:false, filename: '', filename2: '', open3: {{ open3|yesno:'true,false' }}}">     
+        {% csrf_token %}
+        <div class = "step">
+            <div class = "numbers">01</div>
+            <div class = "info">
+                <h2> Upload Current Route </h2>
+                <h3> File Type: CSV </h3>  
+            </div>
+            <div class = "upload">
+                <label>
+                    <img src="{% static 'import-file.png' %}" alt="My image">
+                    <input type="file" name="file" style="display:none"  x-on:change= 
+                    "open =! open;
+                    filename = $event.target.files[0].name;">
+                    <div x-show="open">
+                    <span x-text="filename"></span>
+                    </div>
+                  </label>
+            </div>
+        </div>
+        <div class = "step">
+            <div class = "numbers">02</div>
+            <div class = "info">
+                <h2> Upload New Stops </h2>
+                <h3> File Type: CSV </h3>
+            </div>
+            <div class = "upload">
+                <label>
+                    <img src="{% static 'import-file.png' %}" alt="My image">
+                    <input type="file" name="file2" style="display:none"  x-on:change= 
+                    "open2 =! open2;
+                    filename2 = $event.target.files[0].name;">
+                    <div x-show="open2">
+                        <span x-text="filename2"></span>
+                        </div>
+                  </label>
+            </div>
+        </div>
+        <div class = "step">
+            <div class = "numbers">03</div>
+            <div class = "info">
+                <h2> Enter API Key </h2>
+                <h3> File Type: CSV </h3>
+                <input id = "keyStyle" type = "text" name = "key">
+
+            </div>
+            <div class = "upload">
+                <a x-show = "open3" href = "/media/uploads/newRoute.csv" download>  Download New Route </a>
+                <div class = "loadContainer">
+                    <div class="load" x-show = "open4"> </div>
+                </div>
+            </div> 
+        </div>
+        <button @click = "open4 =! open4" type = "submit"> Submit </button>
+        <h4>made with ❤️ by <a href = "https://saraimarte.netlify.app/">sarai </a> </h4>
+
+    </form>
+    </div>
+
+
+
+</div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    *{
+        box-sizing:border-box;
+        padding:0;
+        margin:0;
+    }
+    :root{
+        --fontOne: 'PT Serif', serif;
+        --fontTwo: 'Roboto', sans-serif;
+        --fontWeightReg: 400;
+        --fontSizeNumbers: 100px;
+        --h1FontSize: 30px;
+        --h2FontSize: 25px;
+        --h3FontSize: 16px;
+        --h3Color: #666666;
+    }
+    
+    body{
+        font-family: var(--fontOne);
+        width:100%;
+    }
+
+    .content{
+        margin-top:50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap:4em;
+        height:80vh;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        gap:4em;
+        height:100%;
+    }
+    label{
+        display:flex;
+        justify-content: start;
+        align-items: center;
+
+    }
+    .step{
+        display: flex;
+        width:50%;
+        gap:1em;
+        }
+    
+    .upload{
+        position:relative;
+        top:20px;
+        width:50%;
+
+    }
+    .info{
+        position: relative;
+        top:20px;
+    }
+
+    img{
+        width:38px;
+        height:38px;
+    }
+
+    h1,h2,h3, button{
+        font-weight: var(--fontWeightReg);
+        font-family: var(--fontOne);
+
+    }
+    #cta{
+        text-align:center;
+        margin: 0 auto;
+    }
+    h2{
+        font-size: var(--h2FontSize);
+        width:300px;
+
+    }
+    h3{
+        font-size: var(--h3FontSize);
+        color: var(--h3Color);
+    }
+
+   .navbar{
+    background-color:black;
+    color:#fff;
+    height:70px;
+   }
+
+   .navbar ul{
+     display:flex;
+     gap:1em;
+   }
+
+   .navbar .flex{
+    justify-content: space-between;
+   }
+
+   .container{
+    max-width:1100px;
+    margin:0 auto;
+    overflow:auto;
+    padding:0 40px;
+   }
+
+   .flex{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+   }
+
+   ul{
+    list-style-type:none;
+   }
+
+   .navbar a{
+    text-decoration: none;
+    color:#fff;
+   }
+
+   .numbers{
+        font-family: var(--fontTwo);
+        font-size: var(--fontSizeNumbers);
+   }
+   
+   button{
+    background-color:black;
+    height:51px;
+    width:50%;
+    color:white;
+    font-size:30px;
+   }
+
+   h4{
+    position: relative;
+    bottom:30px;
+   }
+
+   
+
+</style>
+<style>
+    a{
+        color:black;
+    }
+    #keyStyle{
+       border:2px solid black;
+       height:30px;
+       font-family: proxima-nova, sans-serif;
+       font-style: normal;
+       font-weight: 700;
+                
+    }
+    .loadContainer{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    /*https://codepen.io/jake-lee/pen/jrJYON*/
+ @keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+ 
+
+ @-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.load {
+    position: relative;
+    right:10%;
+    top:5px;
+	width: 30px;
+	height: 30px;
+	border:solid 4px #000000;
+	border-radius: 50%;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	 -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name:             rotate; 
+    -webkit-animation-duration:         1.0s; 
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+    	
+    transition: all 0.5s ease-in;
+    animation-name:             rotate; 
+    animation-duration:         1.0s; 
+    animation-iteration-count:  infinite;
+    animation-timing-function: linear; 
+}
+</style>
+
+
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 
 <form method="POST" enctype="multipart/form-data" action="" x-data="{open:false, open2:false, open4:false, filename: '', filename2: '', open3: {{ open3|yesno:'true,false' }}}">     
     {% csrf_token %}
@@ -194,4 +509,4 @@
     }
 
 </style>
-{% endblock%}
+-->
