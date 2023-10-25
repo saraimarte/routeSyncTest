@@ -71,6 +71,9 @@
                 <div class = "loadContainer">
                     <div class="load" x-show = "open4"> </div>
                 </div>
+                <div class = "tut"> 
+                    <iframe width="500" height="300" src="https://www.youtube.com/embed/VxCbR5kWn08" title="How to Get API Key From Google Maps (2023)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
             </div> 
         </div>
         <button @click = "open4 =! open4" type = "submit"> Submit </button>
@@ -91,6 +94,7 @@
         padding:0;
         margin:0;
     }
+
     :root{
         --fontOne: 'PT Serif', serif;
         --fontTwo: 'Roboto', sans-serif;
@@ -107,6 +111,13 @@
         width:100%;
     }
 
+    .upload{
+        display:flex;
+        justify-content: center;
+        align-items: start;
+        gap:1em;
+
+    }
     .content{
         margin-top:50px;
         display: flex;
@@ -268,9 +279,6 @@
 }
 
 .load {
-    position: relative;
-    right:10%;
-    top:5px;
 	width: 30px;
 	height: 30px;
 	border:solid 4px #000000;
